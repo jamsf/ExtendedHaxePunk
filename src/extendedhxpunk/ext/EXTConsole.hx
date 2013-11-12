@@ -14,7 +14,7 @@ package extendedhxpunk.ext;
 class EXTConsole
 {
 #if debug
-	public static const CONSOLE_KEY:int = EXTKey.BACKSLASH;
+	public static inline var CONSOLE_KEY:Int = EXTKey.BACKSLASH;
 #end
 	/**
 	 * Logging function for when a serious error occurs, often to be logged on 
@@ -90,7 +90,7 @@ class EXTConsole
 	{
 	#if debug
 		HXP.console.enable();
-		EXTConsole.debug("EXTConsole", "initializeConsole()", "EXTConsole Initialized");
+		EXTConsole.debug("EXTConsole", "initializeConsole()", ["EXTConsole Initialized"]);
 	#end
 	}
 	

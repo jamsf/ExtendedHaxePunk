@@ -4,9 +4,9 @@ import flash.display.BitmapData;
 import flash.geom.Point;
 
 import com.haxepunk.HXP;
-import extendedpunk.ext.EXTCamera;
-import extendedpunk.ext.EXTUtility;
-import extendedpunk.ui.UIView;
+import extendedhxpunk.ext.EXTCamera;
+import extendedhxpunk.ext.EXTUtility;
+import extendedhxpunk.ui.UIView;
 
 /**
  * UIViewController
@@ -24,10 +24,10 @@ class UIViewController
 	
 	/**
 	 * Set this to render the views in this tree to a custom buffer
-	 * By default we use FP.buffer
+	 * By default we use HXP.buffer
 	 */
 	//TODO - fcole - Test that this works
-	public var customBuffer:BitmapData = null;
+	public var bitmapBuffer:BitmapData = null;
 	
 	/**
 	 * Constructor. Usually UI positioning is independent of camera location,
@@ -47,7 +47,7 @@ class UIViewController
 	/**
 	 * Update the UI owned by this controller
 	 */
-	public function update():void
+	public function update():Void
 	{
 		rootView.update();
 	}
@@ -55,11 +55,11 @@ class UIViewController
 	/**
 	 * Render the UI owned by this controller
 	 */
-	public function render():void
+	public function render():Void
 	{
 		var offsetPosition:Point = EXTUtility.ZERO_POINT;
 		var bounds:Point = new Point(_bounds.x, _bounds.y);
-		var scale:Number = 1.0;
+		var scale:Float = 1.0;
 		
 		if (_camera != null)
 		{
@@ -69,13 +69,13 @@ class UIViewController
 			bounds.y *= scale;
 		}
 		
-		var bufferToUse:BitmapData = this.customBuffer != null ? this.customBuffer : FP.buffer;
+		var bufferToUse:BitmapData = this.bitmapBuffer != null ? this.bitmapBuffer : HXP.buffer;
 		rootView.render(bufferToUse, offsetPosition, bounds, scale);
 	}
 	
 	/**
-	 * Protected
+	 * private
 	 */
-	protected var _bounds:Point = null;
-	protected var _camera:EXTCamera = null;
+	private var _bounds:Point = null;
+	private var _camera:EXTCamera = null;
 }

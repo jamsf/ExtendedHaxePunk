@@ -158,12 +158,12 @@ class UIView
 	
 	/**
 	 * Render the View. This function should NOT need to be overridden in normal cases.
-	 * @param	buffer					This can be either BitmapData for bitmap (flash) or AtlasRegion (hardware accelerated)
+	 * @param	buffer					Either FP.buffer or custom buffer. TODO - See if this works for RenderMode.HARDWARE
 	 * @param	parentAbsolutePosition	The true upper left screen coordinate of the parent view.
 	 * @param	parentSize				The true drawing size of the parent.
 	 * @param	scale					How much to scale the view by - Used to account for zoom in camera-relative UI.
 	 */
-	public function render(buffer:Dynamic, parentAbsolutePosition:Point, parentSize:Point, scale:Float):Void
+	public function render(buffer:BitmapData, parentAbsolutePosition:Point, parentSize:Point, scale:Float):Void
 	{
 		var myOffset:Point = new Point(this.position.x, this.position.y);
 		var mySize:Point = new Point(this.size.x, this.size.y);
@@ -215,7 +215,7 @@ class UIView
 	 * @param	absoluteSize		Bounds to render content within.
 	 * @param	scale				Zoom level, for scaling images to match.
 	 */
-	private function renderContent(buffer:Dynamic, absoluteUpperLeft:Point, absoluteSize:Point, scale:Float):Void
+	private function renderContent(buffer:BitmapData, absoluteUpperLeft:Point, absoluteSize:Point, scale:Float):Void
 	{
 		if (_backgroundColor != null)
 		{

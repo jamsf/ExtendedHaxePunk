@@ -1,10 +1,10 @@
 package extendedhxpunk.ui;
 
 import flash.geom.Point;
-import net.flashpunk.graphics.Image;
-import net.flashpunk.graphics.Text;
-import net.extendedpunk.ext.EXTUtility;
-import net.extendedpunk.ui.UIImageView;
+import com.haxepunk.graphics.Image;
+import com.haxepunk.graphics.Text;
+import extendedhxpunk.ext.EXTUtility;
+import extendedhxpunk.ui.UIImageView;
 
 /**
  * UIButton
@@ -12,7 +12,7 @@ import net.extendedpunk.ui.UIImageView;
  *    and handles a visual clickable representation.
  * Created by Fletcher, 10/20/13
  */
-public class UIButton extends UITextButton
+class UIButton extends UITextButton
 {
 	/**
 	 * enabledImage : Image to be displayed when button is enabled for interaction and
@@ -54,9 +54,9 @@ public class UIButton extends UITextButton
 	 * selectedHoveringImage : Image displayed mouse is hovering over button in selected state.
 	 * 						   Rather than enabledImage, uses selectedImage as default.
 	 */
-	public var selectedHoveringImageImage(get, set):Image;
+	public var selectedHoveringImage(get, set):Image;
 	public function get_selectedHoveringImage():Image { return _selectedHoveringImage; }
-	public function set_selectedHoveringImage(i:Image):void { _selectedHoveringImage = i; updateImageSize(i); return i; }
+	public function set_selectedHoveringImage(i:Image):Image { _selectedHoveringImage = i; updateImageSize(i); return i; }
 	
 	/**
 	 * Direct access to helpful subview
@@ -94,14 +94,14 @@ public class UIButton extends UITextButton
 	/**
 	 * Protected
 	 */
-	protected var _enabledImage:Image = null;
-	protected var _disabledImage:Image = null;
-	protected var _hoveringImage:Image = null;
-	protected var _pressedImage:Image = null;
-	protected var _selectedImage:Image = null;
-	protected var _selectedHoveringImage:Image = null;
+	private var _enabledImage:Image = null;
+	private var _disabledImage:Image = null;
+	private var _hoveringImage:Image = null;
+	private var _pressedImage:Image = null;
+	private var _selectedImage:Image = null;
+	private var _selectedHoveringImage:Image = null;
 	
-	protected function updateImageSize(image:Image):void
+	private function updateImageSize(image:Image):Void
 	{
 		if (image != null)
 		{
@@ -110,7 +110,7 @@ public class UIButton extends UITextButton
 		}
 	}
 	
-	override protected function switchToState(state:uint):void
+	override private function switchToState(state:UInt):Void
 	{
 		super.switchToState(state);
 		
@@ -119,29 +119,23 @@ public class UIButton extends UITextButton
 		switch (state)
 		{
 			default:
-			case ENABLED_STATE:
+			case UITextButton.ENABLED_STATE:
 				newImage = _enabledImage;
-				break;
-			case DISABLED_STATE:
+			case UITextButton.DISABLED_STATE:
 				newImage = _disabledImage != null ? _disabledImage : _enabledImage;
-				break;
-			case HOVERING_STATE:
+			case UITextButton.HOVERING_STATE:
 				newImage = _hoveringImage != null ? _hoveringImage : _enabledImage;
-				break;
-			case PRESSED_STATE:
+			case UITextButton.PRESSED_STATE:
 				newImage = _pressedImage != null ? _pressedImage : _enabledImage;
-				break;
-			case SELECTED_STATE:
+			case UITextButton.SELECTED_STATE:
 				newImage = _selectedImage != null ? _selectedImage : _enabledImage;
-				break;
-			case SELECTED_HOVERING_STATE:
+			case UITextButton.SELECTED_HOVERING_STATE:
 				if (_selectedHoveringImage != null)
 					newImage = _selectedHoveringImage;
 				else if (_selectedImage != null)
 					newImage = _selectedImage;
 				else
 					newImage = _enabledImage;
-				break;
 		}
 		
 		if (newImage != imageView.image)

@@ -6,19 +6,19 @@ import com.haxepunk.utils.Key;
 	// Extends the functionality of Flashpunk's Key class to cover
 	//   more of the keyboard.
 	// Created by Fletcher, 4/23/13, Ported by Jams, 11/7/13
-	public class EXTKey extends Key
+	class EXTKey extends Key
 	{
-		public static const TILDE:int = 192;
-		public static const BACKSLASH:int = 220;
-		public static const SLASH:int = 191;
-		public static const PERIOD:int = 190;
-		public static const COMMA:int = 188;
-		public static const QUOTE:int = 222;
-		public static const COLON:int = 186;
-		public static const EQUALS:int = 187;
-		public static const DASH:int = 189;
+		public static inline var TILDE:Int = 192;
+		public static inline var BACKSLASH:Int = 220;
+		public static inline var SLASH:Int = 191;
+		public static inline var PERIOD:Int = 190;
+		public static inline var COMMA:Int = 188;
+		public static inline var QUOTE:Int = 222;
+		public static inline var COLON:Int = 186;
+		public static inline var EQUALS:Int = 187;
+		public static inline var DASH:Int = 189;
 		
-		public static function name(char:int):String
+		public static function name(char:Int):String
 		{
 			switch (char)
 			{
@@ -47,10 +47,10 @@ import com.haxepunk.utils.Key;
 					return "EQUALS";
 					
 				case DASH:
-					return "DASH";;
+					return "DASH";
 					
 				default:
-					return Key.name(char);
+					return Key.nameOfKey(char);
 			}
 		}
 	}

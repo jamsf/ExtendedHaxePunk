@@ -2,6 +2,7 @@ package extendedhxpunk;
 
 import com.haxepunk.Engine;
 import com.haxepunk.HXP;
+import com.haxepunk.RenderMode;
 
 import extendedhxpunk.ext.EXTUtility;
 import extendedhxpunk.ext.EXTConsole;
@@ -14,6 +15,10 @@ import extendedhxpunk.ext.EXTMath;
 import extendedhxpunk.ui.UIView;
 import extendedhxpunk.ui.UILabel;
 import extendedhxpunk.ui.UITextButton;
+import extendedhxpunk.ui.UIButton;
+import extendedhxpunk.ui.UIViewController;
+import extendedhxpunk.ui.UISmartImageStretchView;
+import extendedhxpunk.ui.UISmartStretchButton;
 
 /**
  * TODO - Eventually just take this main class out, it's not necessary.
@@ -32,7 +37,7 @@ class Main extends Engine
 
 	function new()
 	{
-		super(kScreenWidth, kScreenHeight, kFrameRate, false);	
+		super(kScreenWidth, kScreenHeight, kFrameRate, false, RenderMode.HARDWARE);	
 	}
 
 	override public function init()
