@@ -37,7 +37,7 @@ class UIViewController
 	 * @param	bounds		Size of the view area of this view controller.
 	 * @param	camera		[Optional] Camera to measure relative positions to.
 	 */
-	public function UIViewController(bounds:Point, camera:EXTCamera = null) 
+	public function new(bounds:Point, camera:EXTCamera = null) 
 	{
 		rootView = new UIView(EXTUtility.ZERO_POINT, EXTUtility.ZERO_POINT);
 		_bounds = bounds;

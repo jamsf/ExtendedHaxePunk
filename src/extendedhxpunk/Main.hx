@@ -11,6 +11,7 @@ import extendedhxpunk.ext.EXTCamera;
 import extendedhxpunk.ext.EXTHoverCamera;
 import extendedhxpunk.ext.EXTOffsetType;
 import extendedhxpunk.ext.EXTMath;
+import extendedhxpunk.ext.EXTScene;
 
 import extendedhxpunk.ui.UIView;
 import extendedhxpunk.ui.UILabel;
