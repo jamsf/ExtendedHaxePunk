@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="ExtendedHaXePunk" package="extendedhxpunk.ExtendedHaXePunk" version="1.0.0" company="Jams" />
+	<meta title="ExtendedHaxePunk" package="extendedhxpunk.ExtendedHaxePunk" version="1.0.0" company="Jams" />
 	
 	<!-- output -->
- 	<app main="extendedhxpunk.Main" file="ExtendedHaXePunk" path="bin" />
+ 	<app main="extendedhxpunk.Main" file="ExtendedHaxePunk" path="bin" />
 
 	<!--<window fps="30" orientation="portrait" background="0x333333" />-->
 	<window fps="60" orientation="landscape" resizable="true" background="0x333333" hardware="true" />
