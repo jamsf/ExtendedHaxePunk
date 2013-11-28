@@ -293,7 +293,7 @@ class EXTCamera
 	/**
 	 * Lerping implementation
 	 */
-	private static inline var _LERP_SPEED_:Float = 0.5;
+	private static inline var _LERP_SPEED_:Float = 0.1;
 	private var _lerping:Bool;
 	private var _lerpStartPosition:Point;
 	private var _lerpDestination:Point;
