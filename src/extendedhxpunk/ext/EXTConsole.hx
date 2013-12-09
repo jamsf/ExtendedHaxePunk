@@ -89,6 +89,10 @@ class EXTConsole
 	public static function initializeConsole():Void
 	{
 	#if debug
+		//TODO - fcole - Is this flash isDebugger check needed?
+		//#if flash
+		//if (flash.system.Capabilities.isDebugger)
+		//#end
 		HXP.console.enable();
 		EXTConsole.debug("EXTConsole", "initializeConsole()", ["EXTConsole Initialized"]);
 	#end
