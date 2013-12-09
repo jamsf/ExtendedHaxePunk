@@ -152,8 +152,11 @@ class UIView
 	 */
 	public function update():Void
 	{
-		for (view in _subviews)
-			view.update();
+		if (_subviews != null)
+		{
+			for (view in _subviews)
+				view.update();
+		}
 	}
 	
 	/**
@@ -183,8 +186,11 @@ class UIView
 		this.renderContent(buffer, myAbsoluteUpperLeft, mySize, scale);
 		
 		// Now we draw our subviews
-		for (view in _subviews)
-			view.render(buffer, myAbsoluteUpperLeft, mySize, scale);
+		if (_subviews != null)
+		{
+			for (view in _subviews)
+				view.render(buffer, myAbsoluteUpperLeft, mySize, scale);
+		}
 	}
 	
 	/**
