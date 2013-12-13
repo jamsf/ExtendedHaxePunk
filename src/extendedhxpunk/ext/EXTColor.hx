@@ -22,11 +22,11 @@ class EXTColor
 	
 	// Specific RGB values, 0 to 1
 	public var red (get, set):Float;
-	public function get_red():Float { return (webColor & 0xFF0000) / 255; }
+	public function get_red():Float { return ((webColor & 0xFF0000) >> 16) / 255; }
 	public function set_red(value:Float):Float { return this.setColor(value, this.green, this.blue, this.alpha); }
 	
 	public var green (get, set):Float;
-	public function get_green():Float { return (webColor & 0x00FF00) / 255; }
+	public function get_green():Float { return ((webColor & 0x00FF00) >> 8) / 255; }
 	public function set_green(value:Float):Float { return this.setColor(this.red, value, this.blue, this.alpha); }
 	
 	public var blue (get, set):Float;
