@@ -77,6 +77,11 @@ class UITextButton extends UIView
 			{
 				if (Input.mousePressed)
 				{
+					_pressed = true;
+					this.switchToState(PRESSED_STATE);
+				}
+				else if (Input.mouseReleased && _pressed)
+				{
 					needsToSendCallback = true;
 					
 					if (this.selectable)
@@ -88,12 +93,10 @@ class UITextButton extends UIView
 					}
 				}
 				
-				if (Input.mouseDown)
+				if (!Input.mouseDown)
 				{
-					this.switchToState(PRESSED_STATE);
-				}
-				else
-				{
+					_pressed = false;
+					
 					if (!this.selected || !this.selectable)
 						this.switchToState(HOVERING_STATE);
 					else
@@ -102,6 +105,8 @@ class UITextButton extends UIView
 			}
 			else
 			{
+				_pressed = false;
+				
 				if (this.selected)
 					this.switchToState(SELECTED_STATE);
 				else
@@ -129,6 +134,7 @@ class UITextButton extends UIView
 	
 	private var _enabled:Bool = true;
 	private var _selected:Bool = false;
+	private var _pressed:Bool = false;
 	
 	private var _callback:Array<Dynamic>->Dynamic;
 	private var _argument:Array<Dynamic>;
