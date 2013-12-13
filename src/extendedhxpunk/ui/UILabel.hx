@@ -4,7 +4,6 @@ import flash.display.BitmapData;
 import flash.geom.Point;
 
 import com.haxepunk.graphics.Text;
-import com.haxepunk.HXP;
 import extendedhxpunk.ext.EXTUtility;
 
 /**
@@ -18,12 +17,6 @@ class UILabel extends UIView
 	 * The text to display in this view
 	 */
 	public var text:Text;
-	
-	/**
-	 * Set this to render image to a non-default buffer
-	 */
-	//TODO - fcole - Test this, also probably move to view controller level
-	public var customBuffer:BitmapData = null;
 	
 	/**
 	 * Constructor
@@ -67,8 +60,7 @@ class UILabel extends UIView
 		{
 			var oldScale:Float = this.text.scale;
 			this.text.scale *= scale;
-			this.text.render(customBuffer != null ? customBuffer : HXP.buffer, 
-							absoluteUpperLeft, EXTUtility.ZERO_POINT);
+			this.text.render(buffer, absoluteUpperLeft, EXTUtility.ZERO_POINT);
 			this.text.scale = oldScale;
 		}
 	}
