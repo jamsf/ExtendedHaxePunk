@@ -50,7 +50,7 @@ class UITextButton extends UIView
 	 * @param	callbackArgument Argument to pass to callback function, if necessary
 	 */
 	public function new(position:Point, size:Point, initialText:Text = null,  
-								 cb:Array<Dynamic>->Dynamic = null, cbArgs:Array<Dynamic> = null)
+								 cb:Array<Dynamic>->Void = null, cbArgs:Array<Dynamic> = null)
 	{
 		super(position, size);
 		
@@ -136,7 +136,7 @@ class UITextButton extends UIView
 	private var _selected:Bool = false;
 	private var _pressed:Bool = false;
 	
-	private var _callback:Array<Dynamic>->Dynamic;
+	private var _callback:Array<Dynamic>->Void;
 	private var _argument:Array<Dynamic>;
 	
 	/**

@@ -73,7 +73,7 @@ class UIButton extends UITextButton
 	 * @param	callbackArgument Argument to pass to callback function, if necessary
 	 */
 	public function new(position:Point, size:Point, baseImage:Image, initialText:Text = null, 
-							 cb:Array<Dynamic>->Dynamic = null, cbArgs:Array<Dynamic> = null)
+							 cb:Array<Dynamic>->Void = null, cbArgs:Array<Dynamic> = null)
 	{
 		if (size == null && baseImage != null)
 			size = new Point(baseImage.width, baseImage.height);

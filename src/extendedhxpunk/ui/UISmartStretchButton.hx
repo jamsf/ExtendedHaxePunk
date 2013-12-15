@@ -50,7 +50,7 @@ class UISmartStretchButton extends UITextButton
 										 selectedImageSource:Dynamic = null,
 										 selectedHoveringImageSource:Dynamic = null,
 										 initialText:Text = null,
-										 cb:Array<Dynamic>->Dynamic = null, 
+										 cb:Array<Dynamic>->Void = null, 
 										 cbArgs:Array<Dynamic> = null) 
 	{
 		this.enabledView = new UISmartImageStretchView(EXTUtility.ZERO_POINT, size, enabledImageSource);
