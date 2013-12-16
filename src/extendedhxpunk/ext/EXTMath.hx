@@ -3,11 +3,15 @@ package extendedhxpunk.ext;
 import extendedhxpunk.ext.EXTConsole;
 
 /**
+ * EXTMath
  * Any mathematical function not covered by Math are contained here.
- * @author Jams
+ * Created by Jams
  */
 class EXTMath 
 {
+	public static inline var SQRT2:Float = 1.41421356237;
+	public static inline var SQRT2_2:Float = 0.70710678119;
+	
 	public static function sgn(obj:Dynamic):Int
 	{
 		if (Std.is(obj, Int) || Std.is(obj, Float))
