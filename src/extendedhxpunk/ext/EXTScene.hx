@@ -111,7 +111,11 @@ class EXTScene extends Scene
 			var imageForEntity:Image = cast(entityGraphic, Image);
 			
 			if (imageForEntity != null)
-				imageForEntity.scale *= worldCamera.zoom;
+			{
+				imageForEntity.scaledWidth = imageForEntity.scaledWidth * worldCamera.zoom + 0.5;
+				imageForEntity.scaledHeight = imageForEntity.scaledHeight * worldCamera.zoom + 0.5;
+				//imageForEntity.scale *= worldCamera.zoom;
+			}
 			
 			if (entityGraphic != null)
 			{
@@ -131,7 +135,11 @@ class EXTScene extends Scene
 			var imageForEntity:Image = cast(entityGraphic, Image);
 			
 			if (imageForEntity != null)
-				imageForEntity.scale /= worldCamera.zoom;
+			{
+				imageForEntity.scaledWidth = (imageForEntity.scaledWidth - 0.5) / worldCamera.zoom;
+				imageForEntity.scaledHeight = (imageForEntity.scaledHeight - 0.5) / worldCamera.zoom;
+				//imageForEntity.scale /= worldCamera.zoom;
+			}
 				
 			if (entityGraphic != null)
 			{
