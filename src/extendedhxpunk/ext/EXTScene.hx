@@ -1,13 +1,11 @@
 package extendedhxpunk.ext;
 
 import flash.geom.Point;
-
 import com.haxepunk.Entity;
 import com.haxepunk.Graphic;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.Scene;
 import com.haxepunk.HXP;
-
 import extendedhxpunk.ui.UIViewController;
 
 /**
@@ -29,7 +27,7 @@ class EXTScene extends Scene
 	{
 		super();
 		
-		_entities = new Array<Entity>();
+		_entities = new Map();
 		var screenSize:Point = new Point(HXP.screen.width, HXP.screen.height);
 		worldCamera = new EXTCamera();
 		staticUiController = new UIViewController(screenSize);
@@ -87,19 +85,25 @@ class EXTScene extends Scene
 	 */
 	override public function add<E:Entity>(e:E):E
 	{
-		_entities.push(e);
+		_entities.set(e, true);
 		return super.add(e);
+	}
+	
+	override public function remove<E:Entity>(e:E):E
+	{
+		_entities.remove(e);
+		return super.remove(e);
 	}
 	
 	/**
 	 * Protected
 	 * See NOTE in render() method above for explanation of usage
 	 */
-	private var _entities:Array<Entity>;
+	private var _entities:Map<Entity, Bool>; // TODO - fcole - HashSet?
 	
 	private function applyCameraZoomToEntities():Void
 	{
-		for (entity in _entities)
+		for (entity in _entities.keys())
 		{
 			entity.x *= worldCamera.zoom;
 			entity.y *= worldCamera.zoom;
@@ -119,7 +123,7 @@ class EXTScene extends Scene
 	
 	private function removeCameraZoomFromEntities():Void
 	{
-		for (entity in _entities)
+		for (entity in _entities.keys())
 		{
 			entity.x /= worldCamera.zoom;
 			entity.y /= worldCamera.zoom;
