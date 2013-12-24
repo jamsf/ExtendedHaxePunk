@@ -22,8 +22,12 @@ class UIImageView extends UIView
 		return _image;
 	}
 	public function set_image(image:Image):Image 
-	{ 
-		_image = image; 
+	{
+#if !(flash || js)
+		if (image != null)
+			image.layer = 0;
+#end
+		_image = image;
 		this.updateImage(); 
 		return _image;
 	}
@@ -39,7 +43,7 @@ class UIImageView extends UIView
 						 new Point(initialImage.scaledWidth, initialImage.scaledHeight) :
 						 new Point();
 		super(position, size);
-		_image = initialImage;
+		this.image = initialImage;
 	}
 	
 	/**

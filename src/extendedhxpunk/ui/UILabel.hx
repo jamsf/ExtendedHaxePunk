@@ -3,6 +3,8 @@ package extendedhxpunk.ui;
 import flash.display.BitmapData;
 import flash.geom.Point;
 
+import com.haxepunk.HXP;
+import com.haxepunk.Entity;
 import com.haxepunk.graphics.Text;
 import extendedhxpunk.ext.EXTUtility;
 
@@ -16,7 +18,7 @@ class UILabel extends UIView
 	/**
 	 * The text to display in this view
 	 */
-	public var text:Text;
+	public var text(get, set):Text;
 	
 	/**
 	 * Constructor
@@ -29,7 +31,7 @@ class UILabel extends UIView
 						 new Point(initialText.scaledWidth, initialText.scaledHeight) :
 						 new Point();
 		super(position, size);
-		text = initialText;
+		this.text = initialText;
 	}
 	
 	override public function update():Void
@@ -43,10 +45,36 @@ class UILabel extends UIView
 		
 		super.update();
 	}
-	
+
 	/**
-	 * Protected
-	 *
+	 * Private
+	 */
+	private var _text:Text;
+#if !(flash || js)
+	private var _textEntity:Entity;
+#end
+
+	public function get_text():Text { return _text; }
+	public function set_text(value:Text):Text 
+	{ 
+		_text = value;
+#if !(flash || js)
+		if (_text != null)
+		{
+			// Text requires an attached entity when it calculates positions on hardware-rendering devices
+			if (_textEntity == null)
+			{
+				_textEntity = HXP.scene.addGraphic(_text);
+				_textEntity.visible = false;
+			}
+			_textEntity.graphic = _text;
+			_textEntity.layer = 0;
+		}
+#end
+		return _text;
+	}
+
+	/*
 	 * Override UIView's renderContent() to render text at this location
 	 * @param	absoluteUpperLeft	Screen coordinate to place content at.
 	 * @param	absoluteSize		Bounds to render content within.
@@ -56,12 +84,12 @@ class UILabel extends UIView
 	{
 		super.renderContent(buffer, absoluteUpperLeft, absoluteSize, scale);
 		
-		if (this.text != null)
+		if (_text != null)
 		{
-			var oldScale:Float = this.text.scale;
-			this.text.scale *= scale;
-			this.text.render(buffer, absoluteUpperLeft, EXTUtility.ZERO_POINT);
-			this.text.scale = oldScale;
+			var oldScale:Float = _text.scale;
+			_text.scale *= scale;
+			_text.render(buffer, absoluteUpperLeft, EXTUtility.ZERO_POINT);
+			_text.scale = oldScale;
 		}
 	}
 }
