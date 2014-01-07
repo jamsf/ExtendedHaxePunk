@@ -1,15 +1,8 @@
 package extendedhxpunk.ui;
 
-import com.haxepunk.graphics.Image;
-import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-
-import com.haxepunk.graphics.atlas.Atlas;
-import com.haxepunk.graphics.atlas.TextureAtlas;
-import com.haxepunk.graphics.atlas.AtlasRegion;
-
 import com.haxepunk.HXP;
 import com.haxepunk.graphics.Canvas;
 import com.haxepunk.utils.Input;
@@ -209,7 +202,6 @@ class UIView
 	private var _backgroundColor:EXTColor = null;
 	private var _backgroundColorCanvas:Canvas = null;
 	private var _backgroundColorRectangle:Rectangle = null;
-	//private var _backgroundColorImage:Image = null;
 	
 	/**
 	 * Whether the mouse is currently over the absolute location of this view
@@ -238,22 +230,11 @@ class UIView
 			_backgroundColorRectangle.width = absoluteSize.x;
 			_backgroundColorRectangle.height = absoluteSize.y;
 			_backgroundColorCanvas.fill(_backgroundColorRectangle, _backgroundColor.webColor, _backgroundColor.alpha);
-			//EXTConsole.debug("UIView", "renderContent()", [_backgroundColor.webColor, _backgroundColor.argbWebColor, _backgroundColor.alpha, ((_backgroundColor.argbWebColor & 0xFF000000) >> 24)]);
 			_backgroundColorCanvas.render(buffer, absoluteUpperLeft, EXTUtility.ZERO_POINT);
 #else
-//TODO - fcole - What do we do here?
-			//if (_backgroundColorImage == null)
-			//{
-				//_backgroundColorImage = Image.createRect(Std.int(absoluteSize.x), Std.int(absoluteSize.y), _backgroundColor.rgbWebColor, _backgroundColor.alpha);
-				//_backgroundColorRectangle = new Rectangle();
-			//}
-			//
-			//_backgroundColorRectangle.width = absoluteSize.x;
-			//_backgroundColorRectangle.height = absoluteSize.y;
-			//_backgroundColorRectangle.x = absoluteUpperLeft.x;
-			//_backgroundColorRectangle.y = absoluteUpperLeft.y;
-			//buffer.fillRect(_backgroundColorRectangle, _backgroundColor.argbWebColor);
-			//_backgroundColorImage.render(buffer, absoluteUpperLeft, EXTUtility.ZERO_POINT);
+			var gfx = HXP.scene.getSpriteByLayer(1).graphics;
+			gfx.beginFill(_backgroundColor.webColor, _backgroundColor.alpha);
+			gfx.drawRect(absoluteUpperLeft.x, absoluteUpperLeft.y, absoluteSize.x, absoluteSize.y);
 #end
 		}
 		
