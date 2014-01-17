@@ -1,25 +1,26 @@
 package extendedhxpunk.io;
 
 import com.haxepunk.utils.Joystick;
+import com.haxepunk.utils.Input;
 import haxe.io.Error;
 import openfl.events.JoystickEvent;
 
 enum XboxButton
 {
-	A_BUTTON,
-	B_BUTTON,
-	X_BUTTON,
-	Y_BUTTON,
-	LB_BUTTON,
-	RB_BUTTON,
-	LEFT_ANALOGUE_BUTTON,
-	RIGHT_ANALOGUE_BUTTON,
-	BACK_BUTTON,
-	START_BUTTON,
-	DPAD_LEFT_BUTTON,
-	DPAD_RIGHT_BUTTON,
-	DPAD_DOWN_BUTTON,
-	DPAD_UP_BUTTON
+	A_BUTTON;
+	B_BUTTON;
+	X_BUTTON;
+	Y_BUTTON;
+	LB_BUTTON;
+	RB_BUTTON;
+	LEFT_ANALOGUE_BUTTON;
+	RIGHT_ANALOGUE_BUTTON;
+	BACK_BUTTON;
+	START_BUTTON;
+	DPAD_LEFT_BUTTON;
+	DPAD_RIGHT_BUTTON;
+	DPAD_DOWN_BUTTON;
+	DPAD_UP_BUTTON;
 }
 
 /**
@@ -28,86 +29,93 @@ enum XboxButton
  */
 class Gamepad
 {
-
-	public function new(joystick:Joystick)
+	public function new(gamepadId:Int)
 	{
-		super()
-		_joystick = joystick;
+		_joystick = Input.joystick(gamepadId);
 	}
 	
 	//----------------------------------| BUTTONS |----------------------------------//
 	
-	public function pressed(XboxButton button):Bool
+	public function pressed(button:XboxButton):Bool
 	{
 		switch(button)
 		{
-			A_BUTTON:
+			case A_BUTTON:
 				return _joystick.pressed(XBOX_GAMEPAD.A_BUTTON);
-			B_BUTTON:
+			case B_BUTTON:
 				return _joystick.pressed(XBOX_GAMEPAD.B_BUTTON);
-			X_BUTTON:
+			case X_BUTTON:
 				return _joystick.pressed(XBOX_GAMEPAD.X_BUTTON);
-			Y_BUTTON:
+			case Y_BUTTON:
 				return _joystick.pressed(XBOX_GAMEPAD.Y_BUTTON);
-			LB_BUTTON:
+			case LB_BUTTON:
 				return _joystick.pressed(XBOX_GAMEPAD.LB_BUTTON);
-			RB_BUTTON:
+			case RB_BUTTON:
 				return _joystick.pressed(XBOX_GAMEPAD.RB_BUTTON);
-			START_BUTTON:
+			case START_BUTTON:
 				return _joystick.pressed(XBOX_GAMEPAD.START_BUTTON);
-			BACK_BUTTON:
+			case BACK_BUTTON:
 				return _joystick.pressed(XBOX_GAMEPAD.BACK_BUTTON);
-			RIGHT_ANALOGUE_BUTTON:
+			case RIGHT_ANALOGUE_BUTTON:
 				return _joystick.pressed(XBOX_GAMEPAD.RIGHT_ANALOGUE_BUTTON);
-			LEFT_ANALOGUE_BUTTON:
+			case LEFT_ANALOGUE_BUTTON:
 				return _joystick.pressed(XBOX_GAMEPAD.LEFT_ANALOGUE_BUTTON);
-			DPAD_DOWN_BUTTON:
+			case DPAD_DOWN_BUTTON:
 				return _joystick.hat.y > 0;
-			DPAD_LEFT_BUTTON:
+			case DPAD_LEFT_BUTTON:
 				return _joystick.hat.x < 0;
-			DPAD_RIGHT_BUTTON:
+			case DPAD_RIGHT_BUTTON:
 				return _joystick.hat.x > 0;
-			DPAD_UP_BUTTON:
+			case DPAD_UP_BUTTON:
 				return _joystick.hat.y < 0;
-			default:
-				return false;
 		}
 	}
 	
-	public function pressed(XboxButton button):Bool
+	public function check(button:XboxButton):Bool
 	{
 		switch(button)
 		{
-			A_BUTTON:
-				return _joystick.pressed(XBOX_GAMEPAD.A_BUTTON);
-			B_BUTTON:
-				return _joystick.pressed(XBOX_GAMEPAD.B_BUTTON);
-			X_BUTTON:
-				return _joystick.pressed(XBOX_GAMEPAD.X_BUTTON);
-			Y_BUTTON:
-				return _joystick.pressed(XBOX_GAMEPAD.Y_BUTTON);
-			LB_BUTTON:
-				return _joystick.pressed(XBOX_GAMEPAD.LB_BUTTON);
-			RB_BUTTON:
-				return _joystick.pressed(XBOX_GAMEPAD.RB_BUTTON);
-			START_BUTTON:
-				return _joystick.pressed(XBOX_GAMEPAD.START_BUTTON);
-			BACK_BUTTON:
-				return _joystick.pressed(XBOX_GAMEPAD.BACK_BUTTON);
-			DPAD_DOWN_BUTTON:
+			case A_BUTTON:
+				return _joystick.check(XBOX_GAMEPAD.A_BUTTON);
+			case B_BUTTON:
+				return _joystick.check(XBOX_GAMEPAD.B_BUTTON);
+			case X_BUTTON:
+				return _joystick.check(XBOX_GAMEPAD.X_BUTTON);
+			case Y_BUTTON:
+				return _joystick.check(XBOX_GAMEPAD.Y_BUTTON);
+			case LB_BUTTON:
+				return _joystick.check(XBOX_GAMEPAD.LB_BUTTON);
+			case RB_BUTTON:
+				return _joystick.check(XBOX_GAMEPAD.RB_BUTTON);
+			case START_BUTTON:
+				return _joystick.check(XBOX_GAMEPAD.START_BUTTON);
+			case BACK_BUTTON:
+				return _joystick.check(XBOX_GAMEPAD.BACK_BUTTON);
+			case RIGHT_ANALOGUE_BUTTON:
+				return _joystick.check(XBOX_GAMEPAD.RIGHT_ANALOGUE_BUTTON);
+			case LEFT_ANALOGUE_BUTTON:
+				return _joystick.check(XBOX_GAMEPAD.LEFT_ANALOGUE_BUTTON);
+			case DPAD_DOWN_BUTTON:
 				return _joystick.hat.y > 0;
-			DPAD_LEFT_BUTTON:
+			case DPAD_LEFT_BUTTON:
 				return _joystick.hat.x < 0;
-			DPAD_RIGHT_BUTTON:
+			case DPAD_RIGHT_BUTTON:
 				return _joystick.hat.x > 0;
-			DPAD_UP_BUTTON:
+			case DPAD_UP_BUTTON:
 				return _joystick.hat.y < 0;
-			default:
-				return false;
 		}
 	}
 	
 	//----------------------------------| ANALOGUE STICKS |----------------------------------//
+	
+	public var rightAnalogueX(get, never):Float;
+	public function get_rightAnalogueX():Float { return _joystick.getAxis(XBOX_GAMEPAD.RIGHT_ANALOGUE_X); }
+	public var rightAnalogueY(get, never):Float;
+	public function get_rightAnalogueY():Float { return _joystick.getAxis(XBOX_GAMEPAD.RIGHT_ANALOGUE_Y); }
+	public var leftAnalogueX(get, never):Float;
+	public function get_leftAnalogueX():Float { return _joystick.getAxis(XBOX_GAMEPAD.LEFT_ANALOGUE_X); }
+	public var leftAnalogueY(get, never):Float;
+	public function get_leftAnalogueY():Float { return _joystick.getAxis(XBOX_GAMEPAD.LEFT_ANALOGUE_Y); }
 	
 	/**
 	 * Gets angle of right analogue stick
@@ -136,7 +144,7 @@ class Gamepad
 	public var rightStickDistance(get, never):Float;
 	public function get_rightStickDistance():Float
 	{
-		if (getAxis(XBOX_GAMEPAD.RIGHT_ANALOGUE_X) < Joystick.deadZone && getAxis(XBOX_GAMEPAD.RIGHT_ANALOGUE_Y) > Joystick.deadZone)
+		if (_joystick.getAxis(XBOX_GAMEPAD.RIGHT_ANALOGUE_X) < Joystick.deadZone && _joystick.getAxis(XBOX_GAMEPAD.RIGHT_ANALOGUE_Y) > Joystick.deadZone)
 			return 0;
 		return Math.sqrt( Math.pow(_joystick.getAxis(XBOX_GAMEPAD.RIGHT_ANALOGUE_X), 2) + Math.pow(_joystick.getAxis(XBOX_GAMEPAD.RIGHT_ANALOGUE_X), 2) );
 	}
@@ -148,7 +156,7 @@ class Gamepad
 	public var leftStickDistance(get, never):Float;
 	public function get_leftStickDistance():Float
 	{
-		if (getAxis(XBOX_GAMEPAD.LEFT_ANALOGUE_X) < Joystick.deadZone && getAxis(XBOX_GAMEPAD.LEFT_ANALOGUE_X) > Joystick.deadZone)
+		if (_joystick.getAxis(XBOX_GAMEPAD.LEFT_ANALOGUE_X) < Joystick.deadZone && _joystick.getAxis(XBOX_GAMEPAD.LEFT_ANALOGUE_X) > Joystick.deadZone)
 			return 0;
 		return Math.sqrt( Math.pow(_joystick.getAxis(XBOX_GAMEPAD.LEFT_ANALOGUE_X), 2) + Math.pow(_joystick.getAxis(XBOX_GAMEPAD.LEFT_ANALOGUE_X), 2) );
 	}
