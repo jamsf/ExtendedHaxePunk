@@ -94,7 +94,29 @@ class EXTScene extends Scene
 		_entities.remove(e);
 		return super.remove(e);
 	}
-	
+
+	/**
+	 * Get the top-most entity colliding with the given position
+	 */
+	public function topMostCollidePoint(type:String, x:Int, y:Int):Entity
+	{
+		var entities:Array<Entity> = new Array();
+		this.collidePointInto(type, x, y, entities);
+		if (entities.length > 0)
+		{
+			entities.sort( function(a:Entity, b:Entity):Int
+			{
+			    var layerA = a.layer;
+			    var layerB = b.layer;
+			    if (layerA < layerB) return -1;
+			    if (layerA > layerB) return 1;
+			    return 0;
+			} );
+			return entities[0];
+		}
+		return null;
+	}
+
 	/**
 	 * Protected
 	 * See NOTE in render() method above for explanation of usage
