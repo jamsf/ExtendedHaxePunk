@@ -106,10 +106,10 @@ class UIView
 		
 		if (subview != null && _subviews != null)
 		{
-			var removed:Array<UIView>  = _subviews.splice(Lambda.indexOf(_subviews, subview), 1);
-			if (removed != null && removed.length > 0)
-				removedView = removed.pop();
+			if (_subviews.remove(subview))
+				removedView = subview;
 		}
+
 		return removedView;
 	}
 	
