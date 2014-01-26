@@ -138,7 +138,7 @@ class UIView
 	}
 	
 	/**
-	 * 
+	 * Opposite of bringSubviewToFront()
 	 */
 	public function sendSubviewToBack(subview:UIView):Void
 	{
@@ -148,6 +148,17 @@ class UIView
 			if (foundView != null)
 				_subviews.unshift(subview);
 		}
+	}
+
+	/**
+	 * Returns a new array with the contents of this view's subviews array
+	 */
+	public function copyOfSubviews():Array<UIView>
+	{
+		var retVal:Array<UIView> = new Array();
+		for (i in 0..._subviews.length)
+			retVal.push(_subviews[i]);
+		return retVal;
 	}
 	
 	/**
