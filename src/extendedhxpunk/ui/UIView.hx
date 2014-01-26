@@ -112,6 +112,16 @@ class UIView
 
 		return removedView;
 	}
+
+	/**
+	 * Remove all the subviews from this view
+	 */
+	public function removeAllSubviews():Void
+	{
+		var subviewsLength:Int = _subviews.length;
+		for (i in 0...subviewsLength)
+			_subviews.pop();
+	}
 	
 	/**
 	 * If the specified subview exists in our list of subviews,
