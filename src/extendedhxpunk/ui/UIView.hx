@@ -106,11 +106,21 @@ class UIView
 		
 		if (subview != null && _subviews != null)
 		{
-			var removed:Array<UIView>  = _subviews.splice(Lambda.indexOf(_subviews, subview), 1);
-			if (removed != null && removed.length > 0)
-				removedView = removed.pop();
+			if (_subviews.remove(subview))
+				removedView = subview;
 		}
+
 		return removedView;
+	}
+
+	/**
+	 * Remove all the subviews from this view
+	 */
+	public function removeAllSubviews():Void
+	{
+		var subviewsLength:Int = _subviews.length;
+		for (i in 0...subviewsLength)
+			_subviews.pop();
 	}
 	
 	/**
@@ -128,7 +138,7 @@ class UIView
 	}
 	
 	/**
-	 * 
+	 * Opposite of bringSubviewToFront()
 	 */
 	public function sendSubviewToBack(subview:UIView):Void
 	{
@@ -138,6 +148,17 @@ class UIView
 			if (foundView != null)
 				_subviews.unshift(subview);
 		}
+	}
+
+	/**
+	 * Returns a new array with the contents of this view's subviews array
+	 */
+	public function copyOfSubviews():Array<UIView>
+	{
+		var retVal:Array<UIView> = new Array();
+		for (i in 0..._subviews.length)
+			retVal.push(_subviews[i]);
+		return retVal;
 	}
 	
 	/**
