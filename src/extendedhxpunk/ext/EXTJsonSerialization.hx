@@ -3,20 +3,13 @@ package extendedhxpunk.ext;
 import tjson.TJSON;
 
 /**
- * Credit: http://stackoverflow.com/questions/11074340/can-you-deserialize-a-json-string-to-a-class-instance-with-haxe
+ * Credit (branched from code at): http://stackoverflow.com/questions/11074340/can-you-deserialize-a-json-string-to-a-class-instance-with-haxe
+ * (As of 2/8/2014, the following solution can be found as an updated answer there as well)
  *
- * This works only for basic class instances but you can extend it to work with 
- * any type.
- * It doesn't work with nested class instances; you can detect the required
- * types with macros (will fail for interfaces or extended classes) or keep
- * track of the types in the serialized object.
- * Also you will have problems with objects that have circular references.
+ * NOTE - the "_explicitType" property will need to be set in json for objects within objects that are being decoded.
  */
 class EXTJsonSerialization
 {
-	// to solve some of the issues above you should iterate on all the fields,
-	// check for a non-compatible Json type and build a structure like the
-	// following before serializing
 	public static function encode(o : Dynamic) 
 	{
 		return TJSON.encode(o);
@@ -25,9 +18,8 @@ class EXTJsonSerialization
 	public static function decode<T>(s : String, typeClass : Class<Dynamic>) : T 
 	{
 		var o = TJSON.parse(s);
-		//var o = haxe.Json.parse(s),
 		var inst = Type.createEmptyInstance(typeClass);
-		EXTJsonSerialization.populate(inst, o.data);
+		EXTJsonSerialization.populate(inst, o);
 		return inst;
 	}
 
@@ -35,7 +27,30 @@ class EXTJsonSerialization
 	{
 		for (field in Reflect.fields(data)) 
 		{
-			Reflect.setField(inst, field, Reflect.field(data, field));
+			if (field == "_explicitType")
+				continue;
+			
+			var value = Reflect.field(data, field);
+			var valueType = Type.getClass(value);
+			var valueTypeString:String = Type.getClassName(valueType);
+			var isValueObject:Bool = Reflect.isObject(value) && valueTypeString != "String";
+			var valueExplicitType:String = null;
+			
+			if (isValueObject)
+			{
+				valueExplicitType = Reflect.field(value, "_explicitType");
+			}
+			
+			if (valueExplicitType != null)
+			{
+				var fieldInst = Type.createEmptyInstance(Type.resolveClass(valueExplicitType));
+				populate(fieldInst, value);
+				Reflect.setField(inst, field, fieldInst);
+			}
+			else
+			{
+				Reflect.setField(inst, field, value);
+			}
 		}
 	}
 }
