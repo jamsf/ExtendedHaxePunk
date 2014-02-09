@@ -38,14 +38,15 @@ class EXTJsonSerialization
 				continue;
 			
 			var value = Reflect.field(data, field);
-			var valueType = Type.getClass(value);
-			var valueTypeString:String = Type.getClassName(valueType);
+			var valueTypeString:String = Type.getClassName(Type.getClass(value));
 			var isValueObject:Bool = Reflect.isObject(value) && valueTypeString != "String";
 			var valueExplicitType:String = null;
 			
 			if (isValueObject)
 			{
 				valueExplicitType = Reflect.field(value, "_explicitType");
+				if (valueExplicitType == null && valueTypeString == "Array")
+					valueExplicitType = "Array";
 			}
 			
 			if (valueExplicitType != null)
@@ -60,6 +61,4 @@ class EXTJsonSerialization
 			}
 		}
 	}
-	
-	//private static function populate in
 }
