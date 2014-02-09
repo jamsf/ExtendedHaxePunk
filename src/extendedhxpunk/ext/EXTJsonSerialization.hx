@@ -10,7 +10,7 @@ import tjson.TJSON;
  */
 class EXTJsonSerialization
 {
-	public static function encode(o : Dynamic) 
+	public static function encode(o : Dynamic) : String
 	{
 		return TJSON.encode(o);
 	}
@@ -22,8 +22,15 @@ class EXTJsonSerialization
 		EXTJsonSerialization.populate(inst, o);
 		return inst;
 	}
+	
+	//public static function decodeIntoMap(s : String) : Map
+	//{
+		//var o = TJSON.parse(s);
+		//var map = new Map();
+		//
+	//}
 
-	private static function populate(inst, data) 
+	public static function populate(inst, data):Void
 	{
 		for (field in Reflect.fields(data)) 
 		{
@@ -53,4 +60,6 @@ class EXTJsonSerialization
 			}
 		}
 	}
+	
+	//private static function populate in
 }
