@@ -170,7 +170,12 @@ class Gamepad
 	public var rightTriggerDistance(get, never):Float;
 	public function get_rightTriggerDistance():Float
 	{
+#if mac
+		//TODO - fcole - How does xbox trigger work on mac?
+		return 0.0;
+#else
 		return Math.abs(Math.min(0, _joystick.getAxis(XBOX_GAMEPAD.TRIGGER)));
+#end
 	}
 	
 	/**
@@ -180,7 +185,12 @@ class Gamepad
 	public var leftTriggerDistance(get, never):Float;
 	public function get_leftTriggerDistance():Float
 	{
+#if mac
+		//TODO - fcole - How does xbox trigger work on mac?
+		return 0.0;
+#else
 		return Math.max(0, _joystick.getAxis(XBOX_GAMEPAD.TRIGGER));
+#end
 	}
 	
 	private var _joystick : Joystick;
