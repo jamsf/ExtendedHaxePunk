@@ -18,9 +18,16 @@ class EXTJsonSerialization
 	public static function decode<T>(s : String, typeClass : Class<Dynamic>) : T 
 	{
 		var o = TJSON.parse(s);
-		var inst = Type.createEmptyInstance(typeClass);
+		var inst;
+		
+#if !flash
+		if (Type.getClassName(typeClass) == "Array")
+			inst = new Array<Dynamic>();
+		else
+#end
+			inst = Type.createEmptyInstance(typeClass);
 		EXTJsonSerialization.populate(inst, o);
-		return inst;
+		return cast inst;
 	}
 	
 	//public static function decodeIntoMap(s : String) : Map
