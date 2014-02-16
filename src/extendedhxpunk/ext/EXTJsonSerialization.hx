@@ -39,21 +39,43 @@ class EXTJsonSerialization
 			
 			var value = Reflect.field(data, field);
 			var valueTypeString:String = Type.getClassName(Type.getClass(value));
-			var isValueObject:Bool = Reflect.isObject(value) && valueTypeString != "String";
+			var isValueObject:Bool = (Reflect.isObject(value) && valueTypeString != "String") || (valueTypeString == "Array");
 			var valueExplicitType:String = null;
+			
+			//EXTConsole.debug("", "", [ "field = " + field + ", valueTypeString = " + valueTypeString ]);
 			
 			if (isValueObject)
 			{
 				valueExplicitType = Reflect.field(value, "_explicitType");
+				//EXTConsole.debug("", "", ["valueExplicitType = " + valueExplicitType]);
 				if (valueExplicitType == null && valueTypeString == "Array")
 					valueExplicitType = "Array";
 			}
 			
 			if (valueExplicitType != null)
 			{
-				var fieldInst = Type.createEmptyInstance(Type.resolveClass(valueExplicitType));
-				populate(fieldInst, value);
-				Reflect.setField(inst, field, fieldInst);
+#if !flash
+				if (valueTypeString == "Array")
+				{
+					var fieldArray:Array<Dynamic> = new Array();
+					var valueArray:Array<Dynamic> = cast value;
+					EXTConsole.debug("", "", [ "value array [1] = " + valueArray[1]]);
+					
+					for (i in 0...valueArray.length)
+					{
+						fieldArray.push(valueArray[i]);
+						//EXTConsole.debug("", "", [ "field array [" + i + "] = " + fieldArray[i]]);
+					}
+					
+					Reflect.setField(inst, field, fieldArray);
+				}
+				else
+#end
+				{
+					var fieldInst = Type.createEmptyInstance(Type.resolveClass(valueExplicitType));
+					populate(fieldInst, value);
+					Reflect.setField(inst, field, fieldInst);
+				}
 			}
 			else
 			{
