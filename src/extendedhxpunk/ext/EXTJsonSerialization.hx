@@ -30,56 +30,92 @@ class EXTJsonSerialization
 		//
 	//}
 
-	public static function populate(inst, data):Void
+	public static function populate(inst : Dynamic, data : Dynamic):Void
 	{
-		for (field in Reflect.fields(data)) 
-		{
-			if (field == "_explicitType")
-				continue;
-			
-			var value = Reflect.field(data, field);
-			var valueTypeString:String = Type.getClassName(Type.getClass(value));
-			var isValueObject:Bool = (Reflect.isObject(value) && valueTypeString != "String") || (valueTypeString == "Array");
-			var valueExplicitType:String = null;
-			
-			//EXTConsole.debug("", "", [ "field = " + field + ", valueTypeString = " + valueTypeString ]);
-			
-			if (isValueObject)
-			{
-				valueExplicitType = Reflect.field(value, "_explicitType");
-				//EXTConsole.debug("", "", ["valueExplicitType = " + valueExplicitType]);
-				if (valueExplicitType == null && valueTypeString == "Array")
-					valueExplicitType = "Array";
-			}
-			
-			if (valueExplicitType != null)
-			{
 #if !flash
-				if (valueTypeString == "Array")
+		var dataTypeString:String = Type.getClassName(Type.getClass(data));
+		
+		if (dataTypeString == "Array")
+		{
+			var dataArray:Array<Dynamic> = cast data;
+			var instArray:Array<Dynamic> = cast inst;
+			
+			for (i in 0...dataArray.length)
+			{
+				var value = dataArray[i];
+				var valueTypeString:String = Type.getClassName(Type.getClass(value));
+				var isValueObject:Bool = (Reflect.isObject(value) && valueTypeString != "String") || (valueTypeString == "Array");
+				var valueExplicitType:String = null;
+				
+				if (isValueObject)
 				{
-					var fieldArray:Array<Dynamic> = new Array();
-					var valueArray:Array<Dynamic> = cast value;
-					EXTConsole.debug("", "", [ "value array [1] = " + valueArray[1]]);
-					
-					for (i in 0...valueArray.length)
+					valueExplicitType = Reflect.field(value, "_explicitType");
+					if (valueExplicitType == null && valueTypeString == "Array")
+						valueExplicitType = "Array";
+				}
+				
+				if (valueExplicitType != null)
+				{
+					if (valueTypeString == "Array")
 					{
-						fieldArray.push(valueArray[i]);
-						//EXTConsole.debug("", "", [ "field array [" + i + "] = " + fieldArray[i]]);
+						var fieldInst = new Array<Dynamic>();
+						populate(fieldInst, value);
+						instArray.push(fieldInst);
 					}
-					
-					Reflect.setField(inst, field, fieldArray);
+					else
+					{
+						var fieldInst = Type.createEmptyInstance(Type.resolveClass(valueExplicitType));
+						populate(fieldInst, value);
+						instArray.push(fieldInst);
+					}
 				}
 				else
-#end
 				{
-					var fieldInst = Type.createEmptyInstance(Type.resolveClass(valueExplicitType));
-					populate(fieldInst, value);
-					Reflect.setField(inst, field, fieldInst);
+					instArray.push(value);
 				}
 			}
-			else
+		}
+		else
+#end
+		{
+			for (field in Reflect.fields(data)) 
 			{
-				Reflect.setField(inst, field, value);
+				if (field == "_explicitType")
+					continue;
+				
+				var value = Reflect.field(data, field);
+				var valueTypeString:String = Type.getClassName(Type.getClass(value));
+				var isValueObject:Bool = (Reflect.isObject(value) && valueTypeString != "String") || (valueTypeString == "Array");
+				var valueExplicitType:String = null;
+				
+				if (isValueObject)
+				{
+					valueExplicitType = Reflect.field(value, "_explicitType");
+					if (valueExplicitType == null && valueTypeString == "Array")
+						valueExplicitType = "Array";
+				}
+				
+				if (valueExplicitType != null)
+				{
+#if !flash
+					if (valueTypeString == "Array")
+					{
+						var fieldInst = new Array<Dynamic>();
+						populate(fieldInst, value);
+						Reflect.setField(inst, field, fieldInst);
+					}
+					else
+#end
+					{
+						var fieldInst = Type.createEmptyInstance(Type.resolveClass(valueExplicitType));
+						populate(fieldInst, value);
+						Reflect.setField(inst, field, fieldInst);
+					}
+				}
+				else
+				{
+					Reflect.setField(inst, field, value);
+				}
 			}
 		}
 	}
