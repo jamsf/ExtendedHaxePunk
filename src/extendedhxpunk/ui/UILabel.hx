@@ -46,6 +46,14 @@ class UILabel extends UIView
 		super.update();
 	}
 
+#if !(flash || js)
+	override public function removed():Void
+	{
+		super.removed();
+		HXP.scene.remove(_textEntity);
+	}
+#end
+
 	/**
 	 * Private
 	 */

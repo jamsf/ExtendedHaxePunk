@@ -108,6 +108,8 @@ class UIView
 		{
 			if (_subviews.remove(subview))
 				removedView = subview;
+
+			subview.removed();
 		}
 
 		return removedView;
@@ -118,9 +120,15 @@ class UIView
 	 */
 	public function removeAllSubviews():Void
 	{
-		var subviewsLength:Int = _subviews.length;
-		for (i in 0...subviewsLength)
-			_subviews.pop();
+		if (_subviews != null)
+		{
+			var subviewsLength:Int = _subviews.length;
+			for (i in 0...subviewsLength)
+			{
+				var subview:UIView = _subviews.pop();
+				subview.removed();
+			}
+		}
 	}
 	
 	/**
@@ -159,6 +167,22 @@ class UIView
 		for (i in 0..._subviews.length)
 			retVal.push(_subviews[i]);
 		return retVal;
+	}
+
+	/**
+	 * Called when this view has been removed from it's superview
+	 */
+	public function removed():Void
+	{
+		if (_subviews != null)
+		{
+			var subviewsLength:Int = _subviews.length;
+			for (i in 0...subviewsLength)
+			{
+				var subview:UIView = _subviews[i];
+				subview.removed();
+			}
+		}
 	}
 	
 	/**
