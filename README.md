@@ -8,8 +8,9 @@ Features
 
 * Powerful UI system
 * Fully functional Camera
-* Extended Console and Input functionality (Controller Support coming soon)
+* Extended Console and Input functionality (including controller support)
 * Some utility and helper classes
+* Advanced JSON serialization and deserialization
 
 Coming Soon
 -----------------
