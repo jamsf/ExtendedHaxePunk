@@ -46,6 +46,25 @@ class UIView
 	}
 	
 	/**
+	 * Accessor for setting an additive color value for this view,
+	 * persistently set through all subviews as well.
+	 */
+	public var fillColor(default, set):EXTColor;
+	public function set_fillColor(color:EXTColor):EXTColor
+	{
+		if (_subviews != null)
+		{
+			for (i in 0..._subviews.length)
+			{
+				var subview:UIView = _subviews[i];
+				subview.fillColor = color;
+			}
+		}
+		fillColor = color;
+		return fillColor;
+	}
+	
+	/**
 	 * Accessor for detecting if the mouse is currently hovering over
 	 * this View or any of its subviews
 	 */

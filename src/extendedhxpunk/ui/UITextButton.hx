@@ -4,6 +4,7 @@ import flash.geom.Point;
 import com.haxepunk.graphics.Text;
 import com.haxepunk.utils.Input;
 import extendedhxpunk.ext.EXTUtility;
+import extendedhxpunk.ext.EXTColor;
 
 /**
  * UITextButton
@@ -120,6 +121,27 @@ class UITextButton extends UIView
 		{
 			this.switchToState(DISABLED_STATE);
 		}
+	}
+	
+	/**
+	 * Override fillColor setter to set the color of all states
+	 */
+	override public function set_fillColor(color:EXTColor):EXTColor
+	{
+		super.fillColor = color;
+		if (this.enabledText != null)
+			this.enabledText.color = fillColor.webColor;
+		if (this.disabledText != null)
+			this.disabledText.color = fillColor.webColor;
+		if (this.hoveringText != null)
+			this.hoveringText.color = fillColor.webColor;
+		if (this.pressedText != null)
+			this.pressedText.color = fillColor.webColor;
+		if (this.selectedText != null)
+			this.selectedText.color = fillColor.webColor;
+		if (this.selectedHoveringText != null)
+			this.selectedHoveringText.color = fillColor.webColor;
+		return fillColor;
 	}
 	
 	/**

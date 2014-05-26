@@ -2,11 +2,11 @@ package extendedhxpunk.ui;
 
 import flash.display.BitmapData;
 import flash.geom.Point;
-
 import com.haxepunk.HXP;
 import com.haxepunk.Entity;
 import com.haxepunk.graphics.Text;
 import extendedhxpunk.ext.EXTUtility;
+import extendedhxpunk.ext.EXTColor;
 
 /**
  * UILabel
@@ -44,6 +44,16 @@ class UILabel extends UIView
 		}
 		
 		super.update();
+	}
+	
+	/**
+	 * Override fillColor setter to set the color of the text
+	 */
+	override public function set_fillColor(color:EXTColor):EXTColor
+	{
+		super.fillColor = color;
+		_text.color = fillColor.webColor;
+		return fillColor;
 	}
 
 #if !(flash || js)

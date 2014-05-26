@@ -2,9 +2,9 @@ package extendedhxpunk.ui;
 
 import flash.display.BitmapData;
 import flash.geom.Point;
-
 import com.haxepunk.graphics.Image;
 import extendedhxpunk.ext.EXTUtility;
+import extendedhxpunk.ext.EXTColor;
 
 /**
  * UIImageView
@@ -54,6 +54,19 @@ class UIImageView extends UIView
 		this.size = _image != null ? 
 					new Point(_image.scaledWidth, _image.scaledHeight) :
 					new Point();
+					
+		if (this.fillColor != null && _image != null)
+			_image.color = this.fillColor.webColor;
+	}
+	
+	/**
+	 * Override fillColor setter to set the color of the image
+	 */
+	override public function set_fillColor(color:EXTColor):EXTColor
+	{
+		super.fillColor = color;
+		_image.color = fillColor.webColor;
+		return fillColor;
 	}
 	
 	/**

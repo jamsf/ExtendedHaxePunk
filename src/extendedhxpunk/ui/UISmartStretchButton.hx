@@ -1,9 +1,9 @@
 package extendedhxpunk.ui;
 
 import flash.geom.Point;
-
 import com.haxepunk.graphics.Text;
 import extendedhxpunk.ext.EXTUtility;
+import extendedhxpunk.ext.EXTColor;
 
 /**
  * UISmartStretchButton
@@ -81,6 +81,27 @@ class UISmartStretchButton extends UITextButton
 			this.selectedHoveringView = this.selectedView;
 		
 		super(position, size, initialText, cb, cbArgs);
+	}
+	
+	/**
+	 * Override fillColor setter to set the color of all states
+	 */
+	override public function set_fillColor(color:EXTColor):EXTColor
+	{
+		super.fillColor = color;
+		if (this.enabledView != null)
+			this.enabledView.fillColor = fillColor;
+		if (this.disabledView != null)
+			this.disabledView.fillColor = fillColor;
+		if (this.hoveringView != null)
+			this.hoveringView.fillColor = fillColor;
+		if (this.pressedView != null)
+			this.pressedView.fillColor = fillColor;
+		if (this.selectedView != null)
+			this.selectedView.fillColor = fillColor;
+		if (this.selectedHoveringView != null)
+			this.selectedHoveringView.fillColor = fillColor;
+		return fillColor;
 	}
 	
 	/**
