@@ -1,5 +1,6 @@
 package extendedhxpunk.ext;
 
+import com.haxepunk.math.Vector;
 import extendedhxpunk.ext.EXTConsole;
 
 /**
@@ -28,5 +29,10 @@ class EXTMath
 			EXTConsole.error("Error: Using Math function with a non-number type", "sgn()", []);
 			return 1;
 		}
+	}
+	
+	public static function angleBetweenVectors(u:Vector, v:Vector):Float
+	{
+		return Math.acos(u.dot(v) / (Math.sqrt((u.x * u.x) + (u.y * u.y)) * Math.sqrt((v.x * v.x) + (v.y * v.y))));
 	}
 }
